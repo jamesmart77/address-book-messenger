@@ -1,5 +1,5 @@
 {
-  "name": "scheduling_app",
+  "name": "address_book_messenger_app",
   "version": "1.0.0",
   "license": "MIT",
   "main": "server.js",

@@ -15,10 +15,6 @@ People can create accounts to share contact info and receive emails from group a
 - JWT for Authentication
 
 
-## Database Schema
-Schema diagram can be found at repo root level as png file or [click here](https://github.com/jamesmart77/scheduling_app/blob/master/Scheduling_app.png)
-
-
 ## Initial Setup
  - Add a `.env` file with the tokenSecret value of your choosing. This is needed for the signing of the JWT
  - Run `createdb scheduler-dev` in the terminal. You must have Postgres installed to perform this. This will create the local database

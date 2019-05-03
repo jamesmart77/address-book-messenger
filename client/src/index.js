@@ -8,7 +8,7 @@ import '../src/styles/index.scss/_index.css';
 import { loadUser } from './store/user/actions';
 
 const store = configureStore();
-store.dispatch(loadUser());
+// store.dispatch(loadUser());
 
 ReactDOM.render(
     <Provider store={store}>

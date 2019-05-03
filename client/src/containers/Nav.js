@@ -22,7 +22,7 @@ export class Nav extends Component {
         
         return (
             <div className='nav-container'>
-                <Navbar brand='Sched-Aroo' right>
+                <Navbar brand='BeFree Church Directory' right>
                     {!currentUser.email ? (
                         <NavItem href='/users/login'>Login</NavItem>
                     ) : (

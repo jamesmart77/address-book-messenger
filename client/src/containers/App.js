@@ -34,7 +34,7 @@ export class App extends Component {
         <div className="App">
           <Row className='app-container'>
             <Nav/>
-            { initialLoad && !currentUser.firstName && <LoadingSpinner /> }
+            {/* { initialLoad && !currentUser.firstName && <LoadingSpinner /> } */}
             <SweetAlert
               show={isServerError}
               type='error'
