@@ -1,0 +1,83 @@
+@import './appColors';
+
+nav {
+    background-color: $primarySalmon !important;
+
+    .nav-options-large {
+        &-btn {
+            background: transparent;
+            box-shadow: none;
+            -webkit-box-shadow: none;
+
+            transition-duration: 0.5s;
+
+            i {
+                line-height: 2.2rem;
+            }
+
+            &:hover {
+                background: transparent;
+                box-shadow: none;
+                -webkit-box-shadow: none;
+
+                transition-duration: 0.5s;
+                
+                i {
+                    font-size: 2rem;
+                }
+            }
+        }
+        &.active{
+            left: auto !important;
+            right: 10px !important;
+            width: 150px !important;
+            
+            li {
+                text-align: center;
+                
+                i {
+                    color: $primarySalmon;
+                    height: 48px;
+                    line-height: 48px;
+                    margin: 0 0 0 2rem;
+                }
+
+                .logout-text{
+                    color: $primarySalmon;
+                }
+            }
+        }
+    }
+
+    .nav-options-med-to-small {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 993px) {
+    .side-nav {
+        color: black;
+        padding: 1rem 2rem !important;
+
+        .nav-options-large {
+            display: none;
+
+            &-btn {
+                display: none;
+            }
+        }
+        .nav-options-med-to-small {
+            display: block;
+
+            .logout-text {
+                a {
+                    color: $primarySalmon;
+                }
+                
+                i {
+                    color: $primarySalmon;
+                }
+            }
+        }
+    }
+}

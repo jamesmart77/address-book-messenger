@@ -1,0 +1,12 @@
+@import 'appColors';
+
+.login-container {
+    .header {
+        color: $primarySlate;
+        margin: 2rem 0;
+    }
+
+    hr {
+        margin: 2rem 2rem 1rem;
+    }
+}
