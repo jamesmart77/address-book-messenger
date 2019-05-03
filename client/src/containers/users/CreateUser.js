@@ -11,13 +11,7 @@ import * as EmailValidator from 'email-validator';
 import LoadingSpinner from '../../components/LoadingSpinner';
 
 export class CreateUser extends Component {
-    constructor(props) {
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleReset = this.handleReset.bind(this);
-        this.handleCreateUser = this.handleCreateUser.bind(this);
-        this.handleSubmitBug = this.handleSubmitBug.bind(this);
-        this.state = {
+    state = {
             firstName: '',
             lastName: '',
             email: '',
@@ -26,7 +20,6 @@ export class CreateUser extends Component {
             showModal: false,
             isLoading: false
         }
-    }
 
     componentDidMount(){
         this.isUserLoggedIn();
@@ -36,13 +29,13 @@ export class CreateUser extends Component {
         this.isUserLoggedIn();
     }
 
-    isUserLoggedIn(){
+    isUserLoggedIn = async() => {
         if (this.props.currentUser.email !== '' && !this.props.loginUnauthorized) {
             this.props.history.push('/users');
         }
     }
 
-    handleChange(event) {
+    handleChange = (event) => {
         const { name, value } = event.target;
 
         this.setState({
@@ -54,22 +47,22 @@ export class CreateUser extends Component {
         }
     };
 
-    handleEmailValidation(address) {
+    handleEmailValidation = (address)  => {
         this.props.userActions.emailAddressValidation(address);
     }
 
 
-    handleReset(){
+    handleReset = () => {
         this.props.responseHandlerActions.reset();
     }
 
-    handleSubmitBug(){
-        let win = window.open("https://github.com/jamesmart77/scheduling_app/issues", "_blank")
+    handleSubmitBug = () => {
+        let win = window.open("https://github.com/jamesmart77/address-book-messenger/issues", "_blank")
         win.focus();
         this.handleReset();
     }
 
-    async handleCreateUser() {
+    handleCreateUser = async() => {
         const { firstName, lastName, email, password, passwordConfirm} = this.state;
         if( firstName === '' ||
             lastName === '' ||
@@ -124,7 +117,7 @@ export class CreateUser extends Component {
                             onCancel={this.handleSubmitBug}
 
                         />
-                        <h5 className='header center'>Welcome to Sched-Aroo!</h5>
+                        <h5 className='header center'>Welcome to GroupComm!</h5>
                         <div className='header-subtext'>
                             <p>
                                 Please provide the following to create your account. These details will be used
@@ -208,6 +201,7 @@ CreateUser.propTypes = {
     isAuthenticated: PropTypes.bool,
     isEmailAvailable: PropTypes.bool,
     loginUnauthorized: PropTypes.bool,
+    history: PropTypes.object
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateUser);

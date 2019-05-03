@@ -7,14 +7,11 @@ import { Link } from 'react-router-dom';
 import * as userActions from '../store/user/actions';
 
 export class Nav extends Component {
-    constructor(props) {
-        super(props);
-        this.handleLogout = this.handleLogout.bind(this);
-    }
 
-    async handleLogout(){
-        window.location.replace('/');
-        this.props.userActions.logoutCurrentUser();
+    handleLogout = async () => {
+        // window.location.replace('/');
+        await this.props.userActions.logoutCurrentUser();
+        this.props.history.push('/');
     }
 
     render() {
@@ -22,10 +19,9 @@ export class Nav extends Component {
         
         return (
             <div className='nav-container'>
-                <Navbar brand='BeFree Church Directory' right>
+                <Navbar brand='GroupComm' right>
                     {!currentUser.email ? (
-                        // <NavItem href='/users/login'>Login</NavItem>
-                        <div/>
+                        <NavItem href='/users/login'>Login</NavItem>
                     ) : (
                         <div>
                             <li>Welcome, {currentUser.firstName}</li>
@@ -84,7 +80,8 @@ function mapDispatchToProps(dispatch){
 }
 
 Nav.propTypes = {
-    currentUser: PropTypes.object
+    currentUser: PropTypes.object,
+    history: PropTypes.object
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Nav);
