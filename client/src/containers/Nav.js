@@ -24,7 +24,8 @@ export class Nav extends Component {
             <div className='nav-container'>
                 <Navbar brand='BeFree Church Directory' right>
                     {!currentUser.email ? (
-                        <NavItem href='/users/login'>Login</NavItem>
+                        // <NavItem href='/users/login'>Login</NavItem>
+                        <div/>
                     ) : (
                         <div>
                             <li>Welcome, {currentUser.firstName}</li>
