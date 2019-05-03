@@ -1,32 +1,72 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Users', {
+    return queryInterface.createTable('users', {
       id: {
-        allowNull: false,
-        autoIncrement: true,
+        type: Sequelize.BIGINT,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        autoIncrement: true
       },
       firstName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        field: 'first_name'
       },
       lastName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        field: 'last_name'
+      },
+      phone: {
+        type: Sequelize.INTEGER,
+        allowNull: false        
+      },
+      address: {
+        type: Sequelize.STRING,
+        allowNull: false      
+      },
+      city: {
+        type: Sequelize.STRING,
+        allowNull: false      
+      },
+      state: {
+        type: Sequelize.STRING,
+        allowNull: false      
+      },
+      zipcode: {
+        type: Sequelize.STRING,
+        allowNull: false      
+      },
+      isAdmin: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        field: 'is_admin'   
+      },
+      isAddressHidden: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        default: false,
+        field: 'is_address_hidden'
+      },
+      isPublic: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        field: 'is_public'
       },
       email: {
-        type: Sequelize.STRING
+        allowNull: false,
+        type: Sequelize.STRING,
+        unique: true,
+        validate: {
+          isEmail: true
+        }
       },
       password: {
-        type: Sequelize.STRING
-      },
-      createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.STRING,
+        validate: {
+          notEmpty: true
+        }
       }
     });
   },

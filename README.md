@@ -1,11 +1,8 @@
-# [Sched-Aroo](http://sched-aroo.herokuapp.com/)
+# [Address-Book-Messenger](http://sched-aroo.herokuapp.com/)
 
 ## Description
-To help solve the annoyance of needing to create a schedule manually every few months, why not build an app??
-Specific pain points include: 
-- same people volunteering leading to burnout
-- unavailable date constraints
-- volunteers serving in specific fields constraints.
+People can create accounts to share contact info and receive emails from group admin. User accounts can be private or public to restrict contact info to others in the group. Private accounts contact info is only visible to group admins and public accounts are visible to all group users. 
+
 
 ## Tech Stack
 - Postgres
@@ -14,8 +11,8 @@ Specific pain points include:
 - React
 - Redux
 - Sequelize
-- Materialize
-- Passport for Auth
+- Material-UI
+- JWT for Authentication
 
 
 ## Database Schema
@@ -32,5 +29,4 @@ Schema diagram can be found at repo root level as png file or [click here](https
 
 ## Other Notes
 - Shout out to jmuturi for posting a tutorial on wiring up Node, Postgres, and Express with a Sequelize ORM. [Checkout the tutorial](https://scotch.io/tutorials/getting-started-with-node-express-and-postgres-using-sequelize). For any questions referring to the setup of Sequelize, refer to the article.
-- [Trello board](https://trello.com/b/g8gfhwPm/scheduler)
 - [Many-to-Many guide for Sequelize](https://medium.com/@THEozmic/how-to-create-many-to-many-relationship-using-sequelize-orm-postgres-on-express-677753a3edb5)

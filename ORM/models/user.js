@@ -20,7 +20,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     phone: {
       type: DataTypes.INTEGER,
-      allowNull: false        
+      allowNull: false,
+      validate: {
+        not: ["[a-z]",'i'] //letters not allowed
+      }        
     },
     address: {
       type: DataTypes.STRING,
@@ -59,6 +62,18 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   }, {}); 
+
+  users.beforeCreate((user, options) => {
+    return bcrypt
+      .hash(user.password, 10)
+      .then(hash => {
+        user.password = hash;
+      })
+      .catch(err => {
+        console.error("Bcrypt error: ", err)
+        throw new Error(err);
+      });
+  });
 
   return users;
 };
