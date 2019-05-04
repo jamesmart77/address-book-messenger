@@ -14,6 +14,9 @@ People can create accounts to share contact info and receive emails from group a
 - Material-UI
 - JWT for Authentication
 
+## Database Schema
+- ER diagram can be found [here](https://drive.google.com/file/d/1RzgB6yvWXkErkOvrcNtDrphXUhkzK0FS/view?usp=sharing)
+
 
 ## Initial Setup
  - Add a `.env` file with the tokenSecret value of your choosing. This is needed for the signing of the JWT
