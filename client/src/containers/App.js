@@ -27,13 +27,13 @@ export class App extends Component {
   }
 
   render() {
-    const { isServerError, initialLoad, currentUser } = this.props;
+    const { isServerError, initialLoad, currentUser, history } = this.props;
     
     return (
       <BrowserRouter>
         <div className="App">
           <Row className='app-container'>
-            <Nav/>
+            <Nav history={history}/>
             {/* { initialLoad && !currentUser.firstName && <LoadingSpinner /> } */}
             <SweetAlert
               show={isServerError}

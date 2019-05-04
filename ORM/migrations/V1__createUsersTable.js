@@ -67,10 +67,18 @@ module.exports = {
         validate: {
           notEmpty: true
         }
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        field: 'created_at'
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        field: 'updated_at'
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Users');
+    return queryInterface.dropTable('users');
   }
 };

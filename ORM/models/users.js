@@ -60,6 +60,14 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: true
       }
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'created_at'
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      field: 'updated_at'
     }
   }, {}); 
 
@@ -74,6 +82,22 @@ module.exports = (sequelize, DataTypes) => {
         throw new Error(err);
       });
   });
+
+  users.associate = (models) => {
+    users.belongsToMany(models.groups, {
+      through: models.groups_admins,
+      as: 'groupAdmins',
+      foreignKey: 'groupsId',
+      onDelete: 'CASCADE'
+    });
+
+    users.belongsToMany(models.groups, {
+      through: models.users_groups,
+      as: 'userGroups',
+      foreignKey: 'groupsId',
+      onDelete: 'CASCADE'
+    });
+  }
 
   return users;
 };
