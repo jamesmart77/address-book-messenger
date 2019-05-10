@@ -142,17 +142,6 @@ nav {
 .user-creation-container .header-subtext {
   color: #5f5f5f; }
 
-.user-creation-container .do-not-disturb-tooltip {
-  position: fixed !important; }
-
-.user-creation-container .do-not-disturb-icon {
-  color: #CC2A41;
-  margin: 2.5rem 0 0 .5rem; }
-
-.user-creation-container .check-icon {
-  color: #64908A;
-  margin: 2.5rem 0 0 .5rem; }
-
 .user-creation-container .create-user-button {
   background-color: #64908A;
   border-radius: 2rem;
@@ -161,6 +150,22 @@ nav {
 .swal2-modal .swal2-content ul:not(.browser-default) > li {
   list-style-type: disc;
   margin: .5rem 3rem; }
+
+.create-user-form-container .do-not-disturb-tooltip {
+  position: fixed !important; }
+
+.create-user-form-container .do-not-disturb-icon {
+  color: #CC2A41;
+  margin: 2.5rem 0 0 .5rem; }
+
+.create-user-form-container .check-icon {
+  color: #64908A;
+  margin: 2.5rem 0 0 .5rem; }
+
+.create-user-form-container .switch-wrapper {
+  padding: 1rem; }
+  .create-user-form-container .switch-wrapper h6 {
+    margin-bottom: 1rem; }
 
 .group-container .member-header {
   margin: 3rem 0 2rem 0; }

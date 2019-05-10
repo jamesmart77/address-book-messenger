@@ -40,7 +40,6 @@ export class Landing extends Component {
                                                 <Button
                                                     className='primary-button login-button'
                                                     waves='light' 
-                                                    disabled={true}
                                                     node='a' 
                                                     href='/users/login'>Login</Button>
                                             </Col>
@@ -48,7 +47,6 @@ export class Landing extends Component {
                                                 <Button
                                                     className='secondary-button right'
                                                     waves='light' 
-                                                    disabled={true}
                                                     node='a' 
                                                     href='/users/create'>Create New Account</Button>
                                             </Col>

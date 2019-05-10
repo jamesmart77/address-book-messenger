@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row, Input, Button, Container, Icon } from 'react-materialize';
+import { Row, Button, Container } from 'react-materialize';
 import * as userActions from '../../store/user/actions';
 import * as responseHandlerActions from '../../store/responseHandler/actions';
 import SweetAlert from 'sweetalert2-react';
-import ReactToolTip from 'react-tooltip';
 import * as EmailValidator from 'email-validator';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import { states } from '../../utils/helpers';
+import CreateUserForm from '../../components/users/CreateUserForm';
 
 export class CreateUser extends Component {
     state = {
@@ -16,6 +17,11 @@ export class CreateUser extends Component {
             lastName: '',
             email: '',
             password: '',
+            phone: null,
+            isPublic: true,
+            address: '',
+            state: '',
+            zipcode: null,
             passwordConfirm: '',
             showModal: false,
             isLoading: false
@@ -62,13 +68,44 @@ export class CreateUser extends Component {
         this.handleReset();
     }
 
+    phoneIsValid = () => {
+        let regEx = /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/;
+        return this.state.phone.match(regEx);
+    }
+
+    isValidState = () => {
+        let filteredState = states.filter(state => state === this.state.state);
+        return filteredState.length > 0;
+    }
+
+    isValidZip = () => {
+        const { zipcode } = this.state;
+        return (
+            typeof zipcode === 'number' && zipcode.toString().length === 5
+        )
+    }
+
     handleCreateUser = async() => {
-        const { firstName, lastName, email, password, passwordConfirm} = this.state;
+        const { firstName,
+            lastName,
+            email,
+            password,
+            isPublic,
+            phone,
+            address,
+            state,
+            zipcode,
+            passwordConfirm } = this.state;
+            
         if( firstName === '' ||
             lastName === '' ||
             email === '' ||
             password === '' ||
             passwordConfirm=== '' ||
+            !this.phoneIsValid() ||
+            address === '' ||
+            !this.isValidState() ||
+            !this.isValidZip() ||
             !EmailValidator.validate(email) ||
             !this.props.isEmailAvailable ||
             (password !== passwordConfirm)) {
@@ -78,7 +115,12 @@ export class CreateUser extends Component {
                 email: email,
                 firstName: firstName,
                 lastName: lastName,
-                password: password
+                password: password,
+                isPublic: isPublic,
+                phone: phone,
+                address: address,
+                state: state,
+                zipcode: zipcode,
             }
             try {
                 this.setState({ isLoading: true });
@@ -91,7 +133,9 @@ export class CreateUser extends Component {
 
     render() {
         const { isEmailAvailable, loginUnauthorized } = this.props;
-        const htmlText = "<div>Some of the information provided seems to invalid. Verify the following and try again.<ul><li>All fields are populated</li><li>Email is properly formatted</li><li>Email is available (check mark)</li><li>Passwords match</li></ul></div>";
+        const htmlText = "<div>Some of the information provided seems to invalid. Verify the following and try again.<ul> " +
+        "<li>All fields are populated</li><li>Email is properly formatted</li><li>Email is available (check mark)</li>" + 
+        "<li>Passwords match</li></ul></div>";
         
         if(this.state.isLoading){
             return <LoadingSpinner/>
@@ -125,51 +169,11 @@ export class CreateUser extends Component {
                                 just use it to create an awesome experience! 
                             </p>
                         </div>
-                        <Row l={4} m={6} s={10}>
-                            <Input s={11}
-                                type="email" 
-                                label="Email"
-                                name="email"
-                                value={this.state.email}
-                                onChange={this.handleChange}
-                            />
-                            {isEmailAvailable ? (
-                                <Icon tiny className='check-icon'>check</Icon>
-                             ) : (
-                                <div data-tip='This email address is not available' data-type='error'>
-                                    <ReactToolTip effect="solid" className='do-not-disturb-tooltip'/>
-                                    <Icon tiny className='do-not-disturb-icon'>do_not_disturb</Icon>
-                                </div>
-                            )}
-                            <Input s={12} m={6}
-                                type="text" 
-                                label="First Name"
-                                name="firstName"
-                                value={this.state.firstName}
-                                onChange={this.handleChange}
-                            />
-                            <Input s={12} m={6}
-                                type="text" 
-                                label="Last Name"
-                                name="lastName"
-                                value={this.state.lastName}
-                                onChange={this.handleChange}
-                            />
-                            <Input s={12} m={6}
-                                type="password" 
-                                label="Password" 
-                                name="password"
-                                value={this.state.password}
-                                onChange={this.handleChange}
-                            />
-                            <Input s={12} m={6}
-                                type="password" 
-                                label="Confirm Password" 
-                                name="passwordConfirm"
-                                value={this.state.passwordConfirm}
-                                onChange={this.handleChange}
-                            />
-                        </Row>
+                        <CreateUserForm 
+                            isEmailAvailable={isEmailAvailable}
+                            state={this.state}
+                            handleChange={this.handleChange}
+                        />
                         <Row s={9}>
                             <Button s={9} className='primary-button' onClick={this.handleCreateUser}>Create Account</Button>
                         </Row>

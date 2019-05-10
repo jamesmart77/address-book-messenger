@@ -1,24 +1,17 @@
-import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import React from "react";
 import { Row, Col, Preloader } from 'react-materialize';
 
-export class LoadingSpinner extends Component {
+function LoadingSpinner () {
 
-    render(){
-        return(
-            <div className='loading-container'>
-                <Row>
-                    <Col s={12}>
-                        <Preloader className='loading-spinner' flashing/>
-                    </Col>
-                </Row>
-            </div> 
-        )
-    }
-}
-
-LoadingSpinner.propTypes = {
-    css: PropTypes.object
+    return(
+        <div className='loading-container'>
+            <Row>
+                <Col s={12}>
+                    <Preloader className='loading-spinner' flashing/>
+                </Col>
+            </Row>
+        </div> 
+    )
 }
 
 export default LoadingSpinner;

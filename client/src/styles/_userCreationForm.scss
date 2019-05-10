@@ -1,0 +1,26 @@
+@import './appColors';
+
+.create-user-form-container {
+
+    .do-not-disturb-tooltip {
+        position: fixed !important;
+    }
+
+    .do-not-disturb-icon {
+        color: $primarySalmon;
+        margin: 2.5rem 0 0 .5rem;
+    }
+
+    .check-icon {
+        color: $primaryTeal;
+        margin: 2.5rem 0 0 .5rem;
+    }
+
+    .switch-wrapper {
+        h6 {
+            margin-bottom: 1rem;
+        }
+        
+        padding: 1rem;
+    }
+}
