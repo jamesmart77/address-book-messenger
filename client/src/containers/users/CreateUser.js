@@ -10,6 +10,7 @@ import * as EmailValidator from 'email-validator';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { states } from '../../utils/helpers';
 import CreateUserForm from '../../components/users/CreateUserForm';
+import { isValidPhoneNumber } from 'react-phone-number-input'
 
 export class CreateUser extends Component {
     state = {
@@ -18,13 +19,14 @@ export class CreateUser extends Component {
             email: '',
             password: '',
             phone: null,
-            isPublic: true,
+            isPublic: false,
             address: '',
             state: '',
             zipcode: null,
             passwordConfirm: '',
             showModal: false,
-            isLoading: false
+            isLoading: false,
+            isValidPhone: true
         }
 
     componentDidMount(){
@@ -41,20 +43,34 @@ export class CreateUser extends Component {
         }
     }
 
+    phoneChange = async (number) => {
+        this.setState({phone: number})
+        let isValid = await isValidPhoneNumber(number);
+
+        this.setState({isValidPhone: isValid});
+
+        if(isValid) {
+            let cleanedNumber = number.substr(2);
+            this.handlePhoneAvailability(cleanedNumber);
+        } 
+    }
+
     handleChange = (event) => {
         const { name, value } = event.target;
-
-        this.setState({
-            [name]: value
-        });
-
-        if(name === 'email' && EmailValidator.validate(value)) {
-            this.handleEmailValidation(value);
+        
+        if(name === 'isPublic'){
+            this.setState({
+                [name]: !this.state.isPublic
+            });
+        } else {
+            this.setState({
+                [name]: value
+            });
         }
     };
 
-    handleEmailValidation = (address)  => {
-        this.props.userActions.emailAddressValidation(address);
+    handlePhoneAvailability = (number)  => {
+        this.props.userActions.isPhoneAvailable(number);
     }
 
 
@@ -66,11 +82,6 @@ export class CreateUser extends Component {
         let win = window.open("https://github.com/jamesmart77/address-book-messenger/issues", "_blank")
         win.focus();
         this.handleReset();
-    }
-
-    phoneIsValid = () => {
-        let regEx = /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/;
-        return this.state.phone.match(regEx);
     }
 
     isValidState = () => {
@@ -99,18 +110,18 @@ export class CreateUser extends Component {
             
         if( firstName === '' ||
             lastName === '' ||
-            email === '' ||
             password === '' ||
             passwordConfirm=== '' ||
-            !this.phoneIsValid() ||
+            await isValidPhoneNumber(phone) ||
+            !this.props.isPhoneAvailable ||
             address === '' ||
             !this.isValidState() ||
             !this.isValidZip() ||
-            !EmailValidator.validate(email) ||
-            !this.props.isEmailAvailable ||
+            (email.length > 0 && !EmailValidator.validate(email)) ||
             (password !== passwordConfirm)) {
                 this.setState({ showModal: true });
         } else {
+            let cleanedNumber = phone.substr(2);
             const newUser = {
                 email: email,
                 firstName: firstName,
@@ -132,9 +143,9 @@ export class CreateUser extends Component {
     }
 
     render() {
-        const { isEmailAvailable, loginUnauthorized } = this.props;
+        const { isPhoneAvailable, loginUnauthorized } = this.props;
         const htmlText = "<div>Some of the information provided seems to invalid. Verify the following and try again.<ul> " +
-        "<li>All fields are populated</li><li>Email is properly formatted</li><li>Email is available (check mark)</li>" + 
+        "<li>All fields are populated</li><li>Email is properly formatted</li><li>Phone number is available (check mark)</li>" + 
         "<li>Passwords match</li></ul></div>";
         
         if(this.state.isLoading){
@@ -161,18 +172,19 @@ export class CreateUser extends Component {
                             onCancel={this.handleSubmitBug}
 
                         />
-                        <h5 className='header center'>Welcome to GroupComm!</h5>
+                        <h4 className='header center'>Welcome to GroupComm!</h4>
                         <div className='header-subtext'>
                             <p>
-                                Please provide the following to create your account. These details will be used
-                                by others to search and add you to groups. Your informtion is safe - we'll
-                                just use it to create an awesome experience! 
+                                Please provide the following to create your account. These details are to help connect
+                                and communicate in the group communities. We believe your informtion is safe - we'll
+                                just use it to create an awesome experience for you! 
                             </p>
                         </div>
                         <CreateUserForm 
-                            isEmailAvailable={isEmailAvailable}
+                            isPhoneAvailable={isPhoneAvailable}
                             state={this.state}
                             handleChange={this.handleChange}
+                            phoneChange={this.phoneChange}
                         />
                         <Row s={9}>
                             <Button s={9} className='primary-button' onClick={this.handleCreateUser}>Create Account</Button>
@@ -188,7 +200,7 @@ function mapStateToProps(state) {
     return {
         currentUser: state.currentUser,
         isAuthenticated: state.isAuthenticated,
-        isEmailAvailable: state.isEmailAvailable,
+        isPhoneAvailable: state.isPhoneAvailable,
         loginUnauthorized: state.loginUnauthorized,
     }
 }
@@ -203,7 +215,7 @@ function mapDispatchToProps(dispatch){
 CreateUser.propTypes = {
     currentUser: PropTypes.object,
     isAuthenticated: PropTypes.bool,
-    isEmailAvailable: PropTypes.bool,
+    isPhoneAvailable: PropTypes.bool,
     loginUnauthorized: PropTypes.bool,
     history: PropTypes.object
 };

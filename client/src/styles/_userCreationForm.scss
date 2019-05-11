@@ -16,11 +16,30 @@
         margin: 2.5rem 0 0 .5rem;
     }
 
+    .phone-input {
+        margin-top: 1rem !important;
+    }
+
+    .invalid-phone {
+        border-bottom: 1px solid $primarySalmon !important;
+        box-shadow: 0 1px 0 0 $primarySalmon !important;
+        -webkit-box-shadow: 0 1px 0 0 $primarySalmon !important;
+    }
+
     .switch-wrapper {
         h6 {
             margin-bottom: 1rem;
         }
-        
-        padding: 1rem;
+
+        padding: 1rem 0;
+
+        .tip-btn {
+            background: $white;
+            box-shadow: none;
+            color: $secondaryGrey;
+            cursor: pointer;
+            margin-top: 2rem;
+            -webkit-box-shadow: none;
+        }
     }
 }

@@ -113,15 +113,14 @@ export function createUser(newUser) {
     }
 }
 
-export function emailAddressValidation(address) {
+export function isPhoneAvailable(number) {
     return async(dispatch) => {
         try {
-            await api.emailAddressValidation({email: address});
-            await dispatch(responseHandlerActions.reset());
+            await api.isPhoneAvailable({phone: number});
+            // dispatch(responseHandlerActions.reset());
         } catch (error) {
-            console.error("Error emailAddressValidation: ", error);
-            console.log("ERROR: ", error.message)
-            await dispatch(responseHandlerActions.errorHandler(error));
+            console.error("Error phoneAvailability: ", error);
+            dispatch(responseHandlerActions.errorHandler(error));
         }
     }
 }

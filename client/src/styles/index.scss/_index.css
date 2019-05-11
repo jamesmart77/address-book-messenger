@@ -137,10 +137,12 @@ nav {
     text-align: center; } }
 
 .user-creation-container .header {
-  margin-top: 2rem; }
+  font-weight: 200;
+  margin: 5rem 0 3rem !important; }
 
 .user-creation-container .header-subtext {
-  color: #5f5f5f; }
+  color: #5f5f5f;
+  margin-bottom: 2rem; }
 
 .user-creation-container .create-user-button {
   background-color: #64908A;
@@ -162,10 +164,25 @@ nav {
   color: #64908A;
   margin: 2.5rem 0 0 .5rem; }
 
+.create-user-form-container .phone-input {
+  margin-top: 1rem !important; }
+
+.create-user-form-container .invalid-phone {
+  border-bottom: 1px solid #CC2A41 !important;
+  box-shadow: 0 1px 0 0 #CC2A41 !important;
+  -webkit-box-shadow: 0 1px 0 0 #CC2A41 !important; }
+
 .create-user-form-container .switch-wrapper {
-  padding: 1rem; }
+  padding: 1rem 0; }
   .create-user-form-container .switch-wrapper h6 {
     margin-bottom: 1rem; }
+  .create-user-form-container .switch-wrapper .tip-btn {
+    background: #fff;
+    box-shadow: none;
+    color: #5f5f5f;
+    cursor: pointer;
+    margin-top: 2rem;
+    -webkit-box-shadow: none; }
 
 .group-container .member-header {
   margin: 3rem 0 2rem 0; }

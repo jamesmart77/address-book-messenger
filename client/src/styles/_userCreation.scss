@@ -2,11 +2,13 @@
 
 .user-creation-container {
     .header {
-        margin-top: 2rem;
+        font-weight: 200;
+        margin: 5rem 0 3rem !important;
     }
 
     .header-subtext {
         color: $secondaryGrey;
+        margin-bottom: 2rem;
     }
 
     .create-user-button {

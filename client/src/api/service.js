@@ -52,10 +52,10 @@ export const logoutCurrentUser = async() => {
     return responseHandler(response, 'logoutCurrentUser');
 };
 
-export const emailAddressValidation = async(address) => {
-    POST_Config.body = JSON.stringify(address);
+export const isPhoneAvailable = async(number) => {
+    POST_Config.body = JSON.stringify(number);
     const response = await fetch('/api/users/available', POST_Config);
-    return responseHandler(response, 'emailAddressValidation');
+    return responseHandler(response, 'isPhoneAvailable');
 };
 
 export const userAuthentication = async() => {

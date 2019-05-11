@@ -3,7 +3,7 @@ import { currentUser, initialLoad, allUsers } from './user/reducer';
 import { ownedGroups } from './group/reducer';
 import { loginUnauthorized, 
         isAuthenticated, 
-        isEmailAvailable, 
+        isPhoneAvailable, 
         isServerError, 
         unauthorized,
         addUserToGroupErrpr } from './responseHandler/reducer';
@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
     allUsers,
     loginUnauthorized,
     isAuthenticated,
-    isEmailAvailable,
+    isPhoneAvailable,
     isServerError,
     unauthorized,
     ownedGroups,

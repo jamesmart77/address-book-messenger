@@ -2,10 +2,6 @@ const usersController = require('../../controllers').users;
 const helpers = require('../../controllers').helpers;
 const router = require("express").Router();
 
-router.get('/', (req, res) => res.status(200).send({
-    message: 'Welcome to the Users API!',
-}));
-
 router.get('/authenticate', async (req, res) => {
     try{
         let response = await helpers.authenticationCheck(req);
@@ -51,7 +47,7 @@ router.get('/loadAllUsers', usersController.loadAllUsers);
 
 router.post('/login', usersController.userLogin);
 
-router.post('/available', usersController.isEmailAvailable);
+router.post('/available', usersController.isPhoneAvailable);
 
 router.post('/', usersController.create);
 

@@ -33,9 +33,9 @@ export function unauthorized(state = initialState.unauthorized, action = {}) {
             return state;
     }
 }
-export function isEmailAvailable(state = initialState.isEmailAvailable, action = {}) {
+export function isPhoneAvailable(state = initialState.isPhoneAvailable, action = {}) {
     switch (action.type) {
-        case types.EMAIL_ADDRESS_AVAILABLE:
+        case types.PHONE_AVAILABLE:
             return false;
         case types.RESET:
             return true;

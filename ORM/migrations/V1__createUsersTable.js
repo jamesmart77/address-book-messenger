@@ -18,8 +18,9 @@ module.exports = {
         field: 'last_name'
       },
       phone: {
-        type: Sequelize.INTEGER,
-        allowNull: false        
+        type: Sequelize.BIGINT,
+        allowNull: false,
+        unique: true       
       },
       address: {
         type: Sequelize.STRING,
@@ -37,36 +38,20 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false      
       },
-      isAdmin: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        field: 'is_admin'   
-      },
-      isAddressHidden: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        default: false,
-        field: 'is_address_hidden'
-      },
       isPublic: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         field: 'is_public'
       },
       email: {
-        allowNull: false,
         type: Sequelize.STRING,
-        unique: true,
         validate: {
           isEmail: true
         }
       },
       password: {
         allowNull: false,
-        type: Sequelize.STRING,
-        validate: {
-          notEmpty: true
-        }
+        type: Sequelize.STRING
       },
       createdAt: {
         type: Sequelize.DATE,

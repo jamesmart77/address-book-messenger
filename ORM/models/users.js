@@ -19,8 +19,9 @@ module.exports = (sequelize, DataTypes) => {
       field: 'last_name'
     },
     phone: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       allowNull: false,
+      unique: true,
       validate: {
         not: ["[a-z]",'i'] //letters not allowed
       }        
@@ -41,18 +42,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false      
     },
-    isAdmin: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      field: 'is_admin'   
-    },
     email: {
-      allowNull: false,
       type: DataTypes.STRING,
-      unique: true,
       validate: {
         isEmail: true
       }
+    },
+    isPublic: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      field: 'is_public'
     },
     password: {
       allowNull: false,

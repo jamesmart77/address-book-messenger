@@ -1,4 +1,4 @@
-const User = require('../ORM/models').User;
+const users = require('../ORM/models').users;
 const bcrypt = require('bcrypt');
 const jwt = require('./jwt');
 const helpers = require('./helpers');
@@ -91,21 +91,22 @@ module.exports = {
     };
   },
 
-  async isEmailAvailable(req, res) {
+  async isPhoneAvailable(req, res) {
     try {
-        const retrievedUser = await User.findOne({
-            where: {email: req.body.email}
+        console.log("BODY: ", req.body.phone)
+        const retrievedUser = await users.findOne({
+            where: {phone: req.body.phone}
         })
 
         if(retrievedUser === null){
             res.status(200).send({});            
         }
         else{
-            res.status(401).send({message: "Email address is unavailable"}); 
+            res.status(401).send({message: "Phone number is unavailable"}); 
         }
     }
     catch (error) {
-        console.error("Error at user isEmailAvailable. Error: ", error)
+        console.error("Error at user isPhoneAvailable. Error: ", error)
         res.status(500).send(error)
     };
   },
