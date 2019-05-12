@@ -22,6 +22,7 @@ export class CreateUser extends Component {
             isPublic: false,
             address: '',
             state: '',
+            city: '',
             zipcode: null,
             passwordConfirm: '',
             showModal: false,
@@ -90,9 +91,8 @@ export class CreateUser extends Component {
     }
 
     isValidZip = () => {
-        const { zipcode } = this.state;
         return (
-            typeof zipcode === 'number' && zipcode.toString().length === 5
+            this.state.zipcode.length === 5
         )
     }
 
@@ -104,34 +104,37 @@ export class CreateUser extends Component {
             isPublic,
             phone,
             address,
+            city,
             state,
             zipcode,
             passwordConfirm } = this.state;
-            
-        if( firstName === '' ||
-            lastName === '' ||
-            password === '' ||
-            passwordConfirm=== '' ||
-            await isValidPhoneNumber(phone) ||
+
+        if( (firstName === '' && firstName.length > 2 ) ||
+            (lastName === '' && lastName.length > 2 ) ||
+            (password === '' && password.length > 2 ) ||
+            (passwordConfirm === '' && passwordConfirm.length > 2 ) ||
+            await !isValidPhoneNumber(phone) ||
             !this.props.isPhoneAvailable ||
-            address === '' ||
+            (address === '' && address.length > 2) ||
+            (city === '' && city.length > 2) ||
             !this.isValidState() ||
             !this.isValidZip() ||
             (email.length > 0 && !EmailValidator.validate(email)) ||
             (password !== passwordConfirm)) {
                 this.setState({ showModal: true });
         } else {
-            let cleanedNumber = phone.substr(2);
+            let cleanedNumber = phone.substr(2); //removing preceding +1
             const newUser = {
                 email: email,
                 firstName: firstName,
                 lastName: lastName,
                 password: password,
                 isPublic: isPublic,
-                phone: phone,
+                phone: cleanedNumber,
                 address: address,
                 state: state,
-                zipcode: zipcode,
+                city: city,
+                zipcode: zipcode
             }
             try {
                 this.setState({ isLoading: true });

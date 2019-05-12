@@ -5,6 +5,7 @@ export function errorHandler(error) {
     return async(dispatch) => {
         const errorMessage = error.message;
 
+        console.log("Error: ", errorMessage)
         switch(errorMessage) {
             case errorMessage.includes("loginCurrentUser"):
                 dispatch({ type: types.LOGIN_UNAUTHROIZED});

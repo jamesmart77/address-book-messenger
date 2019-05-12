@@ -17,12 +17,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 
 export class App extends Component {
 
-  constructor(props){
-    super(props);
-    this.handleErrorReset = this.handleErrorReset.bind(this);
-  }
-
-  handleErrorReset(){
+  handleErrorReset = () => {
     this.props.responseHandlerActions.reset();
   }
 

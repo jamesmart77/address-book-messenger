@@ -7,11 +7,11 @@ const Op = require('sequelize').Op;
 module.exports = {
   async create(req, res) {
     try {
-        let user = await User.create(req.body);
+        let user = await users.create(req.body);
 
         delete user.dataValues.password;
         
-        const token = await jwt.sign(user.email, user.id);
+        const token = await jwt.sign(user.phone, user.id);
 
         //store the JWT in the client's browser
         res.cookie('schedAroo_jwt', token);

@@ -72,7 +72,13 @@ export class CreateUserForm extends Component {
                         value={state.address}
                         onChange={handleChange}
                     />
-                    <Input s={6} m={3}
+                    <Input s={12} m={6}
+                        label="City"
+                        name="city"
+                        value={state.city}
+                        onChange={handleChange}
+                    />
+                    <Input s={6}
                         type='select'
                         name="state"
                         value={state.state}
@@ -83,7 +89,7 @@ export class CreateUserForm extends Component {
                             return <option key={state} value={state}>{state}</option>
                         })}
                     </Input>
-                    <Input s={6} m={3}
+                    <Input s={6}
                         type='number'
                         label="Zip Code"
                         name="zipcode"
