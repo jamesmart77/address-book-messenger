@@ -41,11 +41,11 @@ export function loadAllUsers() {
     }
 }
 
-export function loginCurrentUser(email, password) {
+export function loginCurrentUser(phone, password) {
     return async(dispatch) => {
         try {
             let credentials = {
-                'email': email,
+                'phone': phone,
                 'password': password
             };
             const currentUser = await api.loginCurrentUser(credentials);

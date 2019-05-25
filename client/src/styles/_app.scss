@@ -28,8 +28,20 @@ body {
     margin-top: 1rem;
     width: 100%;
 
+    a {
+        color: $primaryTeal;
+    }
+
     &:hover {
         background-color: $primaryTeal;
         color: $white;
+
+        a {
+            color: $white;
+        }
     }
+}
+
+.header-style {
+    font-weight: 200;
 }

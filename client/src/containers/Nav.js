@@ -19,7 +19,7 @@ export class Nav extends Component {
         
         return (
             <div className='nav-container'>
-                <Navbar brand='GroupComm' right>
+                <Navbar className='header-style' brand='GroupComm' right>
                     {!currentUser.email ? (
                         <NavItem href='/users/login'>Login</NavItem>
                     ) : (

@@ -19,12 +19,9 @@ module.exports = (sequelize, DataTypes) => {
       field: 'last_name'
     },
     phone: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
-      validate: {
-        not: ["[a-z]",'i'] //letters not allowed
-      }        
+      unique: true
     },
     address: {
       type: DataTypes.STRING,

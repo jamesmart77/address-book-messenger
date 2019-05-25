@@ -39,10 +39,10 @@ module.exports = {
   async loadAllUsers(req, res) {
     try {
         let decoded = await jwt.decode(req.cookies.schedAroo_jwt);
-        let allUsers = await User.findAll({
+        let allUsers = await users.findAll({
             where: { 
-                email: {
-                    [Op.ne]: decoded.email 
+                phone: {
+                    [Op.ne]: decoded.phone 
                 }
             },
             attributes: {
@@ -63,16 +63,15 @@ module.exports = {
 
   async userLogin(req, res) {
     try {
-        const retrievedUser = await User.findOne({
-            where: {email: req.body.email}
+        console.log("USERS: ", req.body)
+        const retrievedUser = await users.findOne({
+            where: {phone: req.body.phone}
         })
 
         if(bcrypt.compareSync(req.body.password, retrievedUser.password) ||
             retrievedUser === null){
 
-            const token = await jwt.sign(retrievedUser.email, retrievedUser.id);
-            
-            delete retrievedUser.dataValues.password;
+            const token = await jwt.sign(retrievedUser.phone, retrievedUser.id);
 
             const userInfo = await helpers.findUserInfo(retrievedUser.id);
             

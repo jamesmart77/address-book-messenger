@@ -41,13 +41,13 @@ export class CreateUserForm extends Component {
                         onChange={handleChange}
                     />
                     <Col s={11} m={5}>
-                    <PhoneInput
-                        className={!state.isValidPhone ? 'invalid-phone phone-input' : 'phone-input'}
-                        country="US"
-                        placeholder='+1 555 123 4567'
-                        value={state.phone}
-                        error={ !state.isValidPhone && 'Please format as: +1 555 123 4567'}
-                        onChange={phoneChange} />
+                        <PhoneInput
+                            className={!state.isValidPhone ? 'invalid-phone phone-input' : 'phone-input'}
+                            country="US"
+                            placeholder='555 123 4567'
+                            value={state.phone}
+                            error={ !state.isValidPhone && 'Please format as: 555 123 4567'}
+                            onChange={phoneChange} />
                     </Col>
                     <Col s={1}>
                         {isPhoneAvailable ? (

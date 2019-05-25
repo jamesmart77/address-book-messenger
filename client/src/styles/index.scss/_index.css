@@ -21,16 +21,26 @@ body {
   font-size: 1.25rem;
   margin-top: 1rem;
   width: 100%; }
+  .secondary-button a {
+    color: #64908A; }
   .secondary-button:hover {
     background-color: #64908A;
     color: #fff; }
+    .secondary-button:hover a {
+      color: #fff; }
+
+.header-style {
+  font-weight: 200; }
 
 .login-container .header {
   color: #424254;
-  margin: 2rem 0; }
+  margin: 4rem 0 2rem; }
 
-.login-container hr {
-  margin: 2rem 2rem 1rem; }
+.login-container .new-account {
+  margin-top: 4rem; }
+  .login-container .new-account a {
+    color: #64908A;
+    font-size: 1.25rem; }
 
 .landing-container {
   background-color: #424254; }

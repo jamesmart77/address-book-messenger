@@ -1,6 +1,6 @@
 const jwt = require('./jwt');
-const User = require('../ORM/models').User;
-const Group = require('../ORM/models').Group;
+const users = require('../ORM/models').users;
+const groups = require('../ORM/models').groups;
 
 module.exports = {
     authenticationCheck: async (req) => {
@@ -19,7 +19,7 @@ module.exports = {
             let token = req.cookies.schedAroo_jwt;
 
             let decoded  = await jwt.decode(token);
-            let group = await Group.findOne({
+            let group = await groups.findOne({
                 where: {
                     id: req.params.groupId,
                     ownerId: decoded.userId
@@ -39,38 +39,25 @@ module.exports = {
 
     findUserInfo: async (userId) => {
         try {
-            let userGroup = await User.findOne({
-                include: [{
-                    model: Group,
-                    as: 'ownedGroups',
-                    attributes: ['id', 'name'],
-                    where: {ownerId: userId},
-                    include: [{
-                        model: User,
-                        as: 'groupMembers',
-                        attributes: ['id', 'firstName', 'lastName', 'email']
-                    }]
-                }],
-                order: [
-                    [{model: Group, as: 'ownedGroups'}, 'name', 'ASC'],
+            let userInfo = await users.findOne({
+                include: [
+                    {
+                        model: groups,
+                        as: 'groupAdmins',
+                        attributes: ['id', 'name']
+                    },{
+                        model: groups,
+                        as: 'userGroups',
+                        attributes: ['id', 'name']
+                    }
                 ],
                 attributes: {
                     exclude: ['password']
                 }
             });
 
-            if(!userGroup){
-                userGroup = await User.findOne({
-                    where: {
-                        id: userId
-                    },
-                    attributes: {
-                        exclude: ['password']
-                    }
-                });
-            }
-            console.log("USER GROUP: ", userGroup);
-            return userGroup;
+            console.log("USER INFO: ", userInfo);
+            return userInfo;
         } catch (error) {
             console.log("findUserInfo error: ", error);
             throw new Error("findUserInfo error: ", error);

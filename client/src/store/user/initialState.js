@@ -5,7 +5,7 @@ export default Immutable({
         id: 0,
         firstName: '',
         lastName: '',
-        email: ''
+        phone: ''
     },
     initialLoad: true,
     allUsers: [
@@ -13,7 +13,7 @@ export default Immutable({
             id: 0,
             firstName: '',
             lastName: '',
-            email:''
+            phone:''
         }
     ]
 })

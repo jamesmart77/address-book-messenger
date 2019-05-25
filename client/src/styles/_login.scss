@@ -3,10 +3,15 @@
 .login-container {
     .header {
         color: $primarySlate;
-        margin: 2rem 0;
+        margin: 4rem 0 2rem;
     }
 
-    hr {
-        margin: 2rem 2rem 1rem;
+    .new-account {
+        margin-top: 4rem;
+
+        a {
+            color: $primaryTeal;
+            font-size: 1.25rem;
+        }
     }
 }

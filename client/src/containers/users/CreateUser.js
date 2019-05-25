@@ -39,7 +39,7 @@ export class CreateUser extends Component {
     }
 
     isUserLoggedIn = async() => {
-        if (this.props.currentUser.email !== '' && !this.props.loginUnauthorized) {
+        if (this.props.currentUser.phone !== '' && !this.props.loginUnauthorized) {
             this.props.history.push('/users');
         }
     }
