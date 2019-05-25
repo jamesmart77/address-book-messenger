@@ -5,7 +5,16 @@ export default Immutable({
         id: 0,
         firstName: '',
         lastName: '',
-        phone: ''
+        phone: '',
+        address: '',
+        city: '',
+        state: '',
+        zipcode: '',
+        email: '',
+        isPublic: false,
+        createdAt: '',
+        updatedAt: '',
+
     },
     initialLoad: true,
     allUsers: [

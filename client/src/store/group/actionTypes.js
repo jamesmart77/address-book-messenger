@@ -1,1 +1,2 @@
-export const GROUPS = 'group.GROUPS';
+export const GROUPADMINS = 'group.GROUPADMINS';
+export const USERGROUPS = 'group.USERGROUPS';

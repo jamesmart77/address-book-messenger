@@ -83,14 +83,14 @@ module.exports = (sequelize, DataTypes) => {
     users.belongsToMany(models.groups, {
       through: models.groups_admins,
       as: 'groupAdmins',
-      foreignKey: 'groupsId',
+      foreignKey: 'usersId',
       onDelete: 'CASCADE'
     });
 
     users.belongsToMany(models.groups, {
       through: models.users_groups,
       as: 'userGroups',
-      foreignKey: 'groupsId',
+      foreignKey: 'usersId',
       onDelete: 'CASCADE'
     });
   }

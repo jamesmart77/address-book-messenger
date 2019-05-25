@@ -10,24 +10,21 @@ import { Container, Row, Col, Card, Button } from 'react-materialize';
 import { Link } from 'react-router-dom';
 
 export class User extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isLoading: true
-        }
+    state = {
+        isLoading: true
     }
 
     componentWillMount(){
         this.userValidation();
     }
 
-    async userValidation() {
+    userValidation = async () => {
         await this.props.userActions.userAuthentication();
         this.setState({ isLoading: false })
     }
 
     render() {
-        const { isAuthenticated, currentUser, ownedGroups } = this.props;
+        const { isAuthenticated, currentUser, groupAdmins } = this.props;
         if (this.state.isLoading){
             return <LoadingSpinner/>
         }
@@ -39,18 +36,16 @@ export class User extends Component {
                     <Row>
                         <Row>
                             <Col s={12}>
-                                <h3 className='header'>Welcome {currentUser.firstName}!</h3>
+                                <h3 className='header-style header'>Welcome {currentUser.firstName}!</h3>
 
                             </Col>
                         </Row>
                         <Row>
                             <Col s={12}>
-                                <h5 className='sub-header'>Groups You Own</h5>
+                                <h5 className='header-style sub-header'>Groups You Own</h5>
                             </Col>
-                            {ownedGroups && 
-                            ownedGroups.length > 0 &&
-                            ownedGroups[0].id !== 0 && 
-                            ownedGroups.map(group => {
+                            {groupAdmins.length > 0 &&
+                            groupAdmins.map(group => {
                                 return (
                                     <Col m={4} s={10} offset='s1'>
                                         <Card key={"group-" & group.id}
@@ -61,19 +56,14 @@ export class User extends Component {
                                     </Col>
                                 )
                             })}
-
-                            {ownedGroups && 
-                            ownedGroups.length > 0 &&
-                            ownedGroups[0].id === 0 && 
-                                <Row>
-                                    <Col m={5} s={10} offset='s1'>
-                                        <Button className='primary-button'
-                                                onClick={() => this.props.history.push('/groups/create')}>
-                                                Create New Group
-                                        </Button>
-                                    </Col>  
-                                </Row>
-                            }
+                        </Row>
+                        <Row>
+                            <Col m={5} s={10} offset='s1'>
+                                <Button className='primary-button'
+                                        onClick={() => this.props.history.push('/groups/create')}>
+                                        Create New Group
+                                </Button>
+                            </Col>  
                         </Row>
                     </Row>
                 </Container>
@@ -85,7 +75,7 @@ export class User extends Component {
 function mapStateToProps(state) {
     return {
         currentUser: state.currentUser,
-        ownedGroups: state.ownedGroups,
+        groupAdmins: state.groupAdmins,
         isAuthenticated: state.isAuthenticated
     }
 }
@@ -98,7 +88,7 @@ function mapDispatchToProps(dispatch){
 }
 
 User.propTypes = {
-    ownedGroups: PropTypes.array,
+    groupAdmins: PropTypes.array,
     currentUser: PropTypes.object,
     isAuthenticated: PropTypes.bool
 };

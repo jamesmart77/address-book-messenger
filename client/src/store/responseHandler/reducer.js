@@ -55,7 +55,7 @@ export function isServerError(state = initialState.isServerError, action = {}) {
     }
 }
 
-export function addUserToGroupErrpr(state = initialState.addUserToGroupError, action = {}) {
+export function addUserToGroupError(state = initialState.addUserToGroupError, action = {}) {
     switch (action.type) {
         case types.ADD_USER_TO_GROUP_ERROR:
             return true;

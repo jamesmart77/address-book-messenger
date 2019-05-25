@@ -12,11 +12,7 @@ export function loadUser() {
             if(cookie){
                 const currentUser = await api.loadUser();
                 
-                dispatch({ type: userActionTypes.CURRENT_USER_LOGIN, currentUser});
-                if(currentUser.ownedGroups){
-                    const ownedGroups = currentUser.ownedGroups;
-                    dispatch({ type: groupActionTypes.GROUPS, ownedGroups});
-                }
+                await this.updateUser(currentUser);
             }
             
             dispatch({ type: userActionTypes.LOAD_COMPLETE});
@@ -31,7 +27,6 @@ export function loadAllUsers() {
     return async(dispatch) => {
         try {
             const allUsers = await api.loadAllUsers();
-            console.log("ALL USERS: ", allUsers)
             dispatch({ type: userActionTypes.ALL_USERS, allUsers});
             
         } catch (error) {
@@ -49,15 +44,26 @@ export function loginCurrentUser(phone, password) {
                 'password': password
             };
             const currentUser = await api.loginCurrentUser(credentials);
-            dispatch({ type: userActionTypes.CURRENT_USER_LOGIN, currentUser});
-            if(currentUser.ownedGroups){
-                const ownedGroups = currentUser.ownedGroups;
-                dispatch({ type: groupActionTypes.GROUPS, ownedGroups});
-            }
+            await this.updateUser(currentUser);
         } catch (error) {
             console.error("Error logging in current user: ", error);
             dispatch(responseHandlerActions.errorHandler(error));
             throw new Error(error);
+        }
+    }
+}
+
+export function updateUser(currentUser) {
+    return (dispatch) => {
+        try {
+            const groupAdmins = currentUser.groupAdmins;
+            const userGroups = currentUser.userGroups;
+
+            dispatch({ type: userActionTypes.CURRENT_USER_LOGIN, currentUser});
+            dispatch({ type: groupActionTypes.GROUPADMINS, groupAdmins});
+            dispatch({ type: groupActionTypes.USERGROUPS, userGroups});
+        } catch (error) {
+            throw new Error (error);
         }
     }
 }

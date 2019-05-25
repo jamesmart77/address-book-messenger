@@ -5,7 +5,6 @@ export function errorHandler(error) {
     return async(dispatch) => {
         const errorMessage = error.message;
 
-        console.log("Error: ", errorMessage)
         switch(errorMessage) {
             case errorMessage.includes("loginCurrentUser"):
                 dispatch({ type: types.LOGIN_UNAUTHROIZED});
@@ -34,35 +33,6 @@ export function errorHandler(error) {
             default:
                 break;
         }
-
-        // if((errorMessage.includes("loginCurrentUser") && errorMessage.includes("HTTP status 401")) ||
-        //     (errorMessage.includes("createUser"))){
-        //         dispatch({ type: types.LOGIN_UNAUTHROIZED});
-        // } else {
-        //     if(errorMessage.includes("userAuthentication") && errorMessage.includes("HTTP status 401")){
-        //         dispatch({ type: types.RESET});
-            // } else {
-            //     if(errorMessage.includes("HTTP status 403")){
-            //         dispatch({ type: types.UNAUTHORIZED});
-            //     } else {
-                    // if (errorMessage.includes("addUserToGroup") && errorMessage.includes("HTTP status 500")){
-                    //     dispatch({ type: types.ADD_USER_TO_GROUP_ERROR})
-                    // } else {
-                        // if(errorMessage.includes("phoneAvailability") && errorMessage.includes("HTTP status 401")){
-                        //     dispatch({ type: types.EMAIL_ADDRESS_AVAILABLE});
-                        // } else {
-                            // if(errorMessage.includes("loadUser")) {
-                            //     dispatch({ type: userActionTypes.LOAD_COMPLETE});
-                            // } else {
-//                                 if(errorMessage.includes("HTTP status 500")){
-//                                     dispatch({ type: types.SERVER_ERROR});
-//                                 } 
-//                             }
-//                         }
-//                     }
-//                 }
-//             }
-//         }
     }
 }
 

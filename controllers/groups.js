@@ -1,5 +1,4 @@
-const Group = require('../ORM/models').Group;
-const User = require('../ORM/models').User;
+const db = require('../ORM/models');
 const helpers = require('./helpers');
 
 module.exports = {
@@ -7,17 +6,19 @@ module.exports = {
     try {
         await helpers.authenticationCheck(req);
         
-        await Group.create({
+        const group = await db.groups.create({
             name: req.body.name,
-            ownerId: req.body.ownerId
         });
 
-        let ownedGroups = await Group.findAll({
-            where: {ownerId: req.body.ownerId},
-            attributes: ['id', 'name']
+        const currentUser = await db.users.findOne({
+            where: {id: req.body.usersId}
         });
 
-        res.status(201).send(ownedGroups);
+        await group.addGroupAdmin(currentUser);
+
+        let userInfo = await helpers.findUserInfo(req.body.usersId)
+
+        res.status(201).send(userInfo);
     }
     catch (error) {
         console.error("Group creation server error: ", error);
@@ -31,11 +32,11 @@ module.exports = {
         let response = await helpers.authorizationCheck(req);
         
         if(response === 'Authorized'){
-            let newMember = await User.findOne({
+            let newMember = await db.users.findOne({
                 where: { email: req.body.email}
             })
 
-            let group = await Group.findById(req.params.groupId);
+            let group = await db.groups.findById(req.params.groupId);
             
             await group.addGroupMember(newMember);
             let user = await helpers.findUserInfo(group.ownerId);

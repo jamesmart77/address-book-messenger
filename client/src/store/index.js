@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import { currentUser, initialLoad, allUsers } from './user/reducer';
-import { ownedGroups } from './group/reducer';
+import { userGroups, groupAdmins } from './group/reducer';
 import { loginUnauthorized, 
         isAuthenticated, 
         isPhoneAvailable, 
         isServerError, 
         unauthorized,
-        addUserToGroupErrpr } from './responseHandler/reducer';
+        addUserToGroupError } from './responseHandler/reducer';
 
 const rootReducer = combineReducers({
     currentUser,
@@ -17,8 +17,9 @@ const rootReducer = combineReducers({
     isPhoneAvailable,
     isServerError,
     unauthorized,
-    ownedGroups,
-    addUserToGroupErrpr
+    groupAdmins,
+    userGroups,
+    addUserToGroupError
 });
 
 export default rootReducer;

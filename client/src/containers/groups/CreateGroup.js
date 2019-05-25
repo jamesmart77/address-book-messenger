@@ -11,33 +11,23 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import Unauthorized from '../../components/Unauthorized';
 
 export class CreateGroup extends Component {
-    constructor(props) {
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleReset = this.handleReset.bind(this);
-        this.handleCreateGroup = this.handleCreateGroup.bind(this);
-        this.handleAddInvite = this.handleAddInvite.bind(this);
-        this.handleRemoveInvite = this.handleRemoveInvite.bind(this);
-        this.state = {
-            name: '',
-            email: '',
-            invites: [],
-            showModal: false,
-            isLoading: true,
-            createSuccess: false
-        }
+    state = {
+        name: '',
+        showModal: false,
+        isLoading: true,
+        createSuccess: false
     }
 
     componentWillMount(){
         this.userValidation();
     }
 
-    async userValidation() {
+    userValidation = async () => {
         await this.props.userActions.userAuthentication();
         this.setState({ isLoading: false })
     }
 
-    handleChange(event) {
+    handleChange = (event) => {
         const { name, value } = event.target;
 
         this.setState({
@@ -45,32 +35,18 @@ export class CreateGroup extends Component {
         });
     };
 
-    handleReset(){
+    handleReset = () => {
         this.props.responseHandlerActions.reset();
     }
 
-    handleAddInvite(){
-        if(!this.state.invites.includes(this.state.email)) {
-            this.state.invites.push(this.state.email);
-        }
-        
-        this.setState({ email: ''});
-    }
-
-    handleRemoveInvite(email){
-        const updatedInvites = this.state.invites.filter(invitee => invitee !== email);
-        this.setState({ invites: updatedInvites });
-    }
-
-    async handleCreateGroup() {
+    handleCreateGroup = async () => {
         const { name } = this.state;
         if( name === '' ) {
                 this.setState({ showModal: true });
         } else {
             const newGroup = {
-                ownerId: this.props.currentUser.id,
-                name: name,
-                invites: this.state.invites
+                usersId: this.props.currentUser.id,
+                name: name
             }
             try {
                 this.setState({ isLoading: true });
@@ -86,13 +62,12 @@ export class CreateGroup extends Component {
     }
 
     render() {
-        const { isAuthenticated } = this.props;
-        const { invites } = this.state;
+        const { isAuthenticated, currentUser } = this.props;
     
         if(this.state.isLoading){
             return <LoadingSpinner/>
         } else {
-            if(this.props.currentUser.email === '' || !isAuthenticated){
+            if(currentUser.phone === '' || !isAuthenticated){
                 return <Unauthorized/>
             } else {
                 return (
@@ -111,8 +86,8 @@ export class CreateGroup extends Component {
                                 type='success'
                                 onConfirm={() => this.props.history.push("/users")}
                             />
-                            <h5 className='header center'>Let's Make A New Group</h5>
-                            <div className='header-subtext'>
+                            <h5 className='header-style header center'>Let's Make A New Group</h5>
+                            <div className='header-style header-subtext'>
                                 <p>
                                     Go ahead and name your group! No pressure to add people yet, but if you already know some then go for it!
                                 </p>
@@ -125,39 +100,7 @@ export class CreateGroup extends Component {
                                         name="name"
                                         value={this.state.name}
                                         onChange={this.handleChange}
-                                    />
-                                    <Row style={{display: 'none'}}>
-                                        <Input s={10}
-                                            type="text" 
-                                            label="Invite Members"
-                                            name="email"
-                                            value={this.state.email}
-                                            onChange={this.handleChange}
-                                        />
-                                        <Button floating 
-                                                className='add-invite-btn right'
-                                                onClick={this.handleAddInvite} 
-                                                icon='add' />
-                                    </Row>
-                                
-                                </Col>
-                                <Col s={12}>
-                                    <div className='group-invite-list'>
-                                        {invites.length > 0 && <p>Members to Invite</p>}
-                                        {invites.length > 0 && invites.map(email => {
-                                            return(<Chip
-                                                        key={email}
-                                                        className='user-pill'
-                                                        close={false}>
-                                                            <Col s={10} className='user-pill-text'>{email}</Col>
-                                                            <Col s={2}>
-                                                                <div onClick={() => this.handleRemoveInvite(email)}>
-                                                                    <Icon className='user-pill-close-btn'>close</Icon>
-                                                                </div>
-                                                            </Col>
-                                                    </Chip>)
-                                        })}
-                                    </div>
+                                    />                                
                                 </Col>
                             </Row>
                             <Row>
@@ -177,7 +120,6 @@ function mapStateToProps(state) {
     return {
         currentUser: state.currentUser,
         isAuthenticated: state.isAuthenticated,
-        isEmailAvailable: state.isEmailAvailable,
         loginUnauthorized: state.loginUnauthorized,
     }
 }
@@ -193,7 +135,6 @@ function mapDispatchToProps(dispatch){
 CreateGroup.propTypes = {
     currentUser: PropTypes.object,
     isAuthenticated: PropTypes.bool,
-    isEmailAvailable: PropTypes.bool,
     loginUnauthorized: PropTypes.bool,
 };
 
