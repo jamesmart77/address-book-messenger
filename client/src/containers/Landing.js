@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Container, Col, Row, Button } from 'react-materialize';
 
 export class Landing extends Component {
@@ -14,7 +15,7 @@ export class Landing extends Component {
                         <Col l={10} s={12} offset='l1'>
                             <div>
                                 <Row>
-                                    <h3 className='header center'>Under Construction</h3>
+                                    <h3 className='header-style header center'>Under Construction</h3>
                                 </Row>
                                 <Row>
                                     <Col s={12}>
@@ -29,26 +30,29 @@ export class Landing extends Component {
                                     { currentUser.firstName ? (
                                         <Col s={6} offset='s3'>
                                             <Button
-                                                className='primary-button login-button'
+                                                className='header-style primary-button'
                                                 waves='light' 
-                                                node='a' 
-                                                href='/users'>My Account</Button>
+                                            >
+                                                <Link to='/users'>My Account</Link>
+                                            </Button>
                                         </Col>
                                     ) : (
                                         <div>
                                             <Col m={6} s={12}>
                                                 <Button
-                                                    className='primary-button login-button'
+                                                    className='header-style primary-button'
                                                     waves='light' 
-                                                    node='a' 
-                                                    href='/users/login'>Login</Button>
+                                                >
+                                                    <Link to='/users/login'>Login</Link>
+                                                </Button>
                                             </Col>
                                             <Col m={6} s={12}>
                                                 <Button
-                                                    className='secondary-button right'
+                                                    className='header-style secondary-button right'
                                                     waves='light' 
-                                                    node='a' 
-                                                    href='/users/create'>Create New Account</Button>
+                                                >
+                                                    <Link to='/users/create'>Sign Up</Link>
+                                                </Button>
                                             </Col>
                                         </div>
                                     )}

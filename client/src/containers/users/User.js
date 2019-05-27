@@ -6,7 +6,7 @@ import * as userActions from '../../store/user/actions';
 import * as responseHandlerActions from '../../store/responseHandler/actions';
 import Unauthenticated from '../../components/Unauthenticated';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import { Container, Row, Col, Card, Button } from 'react-materialize';
+import { Container, Row, Col, Card, Button, Icon } from 'react-materialize';
 import { Link } from 'react-router-dom';
 
 export class User extends Component {
@@ -35,10 +35,19 @@ export class User extends Component {
                 <Container className='user-container'>
                     <Row>
                         <Row>
-                            <Col s={12}>
-                                <h3 className='header-style header'>Welcome {currentUser.firstName}!</h3>
+                            <Col m={9} s={6}>
+                                <h3 className='header-style header truncate'>Welcome {currentUser.firstName}!</h3>
 
                             </Col>
+                            <Col m={3} s={6}>
+                                <Button className='secondary-button right'
+                                    onClick={() => this.props.history.push('/groups/create')}>
+                                        Group
+                                        <Icon right>add</Icon>
+                                </Button>
+                            </Col>  
+                        </Row>
+                        <Row>
                         </Row>
                         <Row>
                             <Col s={12}>
@@ -56,14 +65,6 @@ export class User extends Component {
                                     </Col>
                                 )
                             })}
-                        </Row>
-                        <Row>
-                            <Col m={5} s={10} offset='s1'>
-                                <Button className='primary-button'
-                                        onClick={() => this.props.history.push('/groups/create')}>
-                                        Create New Group
-                                </Button>
-                            </Col>  
                         </Row>
                     </Row>
                 </Container>

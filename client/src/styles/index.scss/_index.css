@@ -1,6 +1,7 @@
 body {
   background-color: #fff;
   font-family: 'Raleway', sans-serif;
+  font-weight: 200;
   min-width: 360px; }
 
 .primary-button {
@@ -9,9 +10,13 @@ body {
   font-size: 1.25rem;
   margin-top: 1rem;
   width: 100%; }
+  .primary-button a {
+    color: #fff; }
   .primary-button:hover {
     background-color: #fff;
     color: #64908A; }
+    .primary-button:hover a {
+      color: #64908A; }
 
 .secondary-button {
   background-color: #fff;
@@ -40,7 +45,14 @@ body {
   margin-top: 4rem; }
   .login-container .new-account a {
     color: #64908A;
-    font-size: 1.25rem; }
+    font-size: 1.25rem;
+    transition-duration: 0.5s; }
+    .login-container .new-account a:hover {
+      color: #CC2A41;
+      border: 1px solid #CC2A41;
+      border-radius: 2rem;
+      font-size: 1.25rem;
+      padding: 1rem 2rem; }
 
 .landing-container {
   background-color: #424254; }
@@ -52,8 +64,6 @@ body {
     color: #fff !important;
     font-size: 1.25rem;
     margin-bottom: -4rem; }
-  .landing-container .login-button {
-    font-weight: 700; }
   .landing-container .landing-actions-row {
     position: relative;
     top: 5rem; }
@@ -123,11 +133,12 @@ nav {
   margin: 3rem 0 2rem 0; }
 
 .user-container .group-card {
-  background-color: #64908A; }
+  border-radius: 0.5rem; }
   .user-container .group-card .card-title {
-    color: #faf7f7 !important;
-    text-align: center; }
+    color: #5f5f5f !important; }
   .user-container .group-card .card-action {
+    background-color: #faf7f7;
+    border-radius: 0 0 0.5rem 0.5rem;
     text-align: center; }
     .user-container .group-card .card-action a {
       border: 1px solid #CC2A41;

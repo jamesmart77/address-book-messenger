@@ -12,6 +12,16 @@
         a {
             color: $primaryTeal;
             font-size: 1.25rem;
+            transition-duration: 0.5s;
+            
+            &:hover {
+                color: $primarySalmon;
+                border: 1px solid $primarySalmon;
+                border-radius: 2rem;
+                font-size: 1.25rem;
+                padding: 1rem 2rem;
+            }
         }
+
     }
 }
